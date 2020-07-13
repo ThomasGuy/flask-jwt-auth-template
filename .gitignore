@@ -1,0 +1,12 @@
+__pycache__
+deploy.log
+.env
+venv
+
+*.pyc
+tmp/
+*.log
+.coverage
+
+backendAPI_auth
+backendAPI_auth_test
