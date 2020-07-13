@@ -29,6 +29,11 @@ def create_app(Config):
                 'message': 'The {} token has expired'.format(token_type)
             }), 401
 
+        # Define our callback function to check if a token has been revoked or not
+        @jwt.token_in_blacklist_loader
+        def check_if_token_revoked(decoded_token):
+            return is_token_revoked(decoded_token)
+
         @app.teardown_appcontext
         def shutdown_session(exception=None):
             db_scoped_session.remove()

@@ -17,13 +17,13 @@ class LoginAPI(MethodView):
             user = User.authenticate(**credentials)
             if user:
                 # user_claims = app.config['JWT_IDENTITY_CLAIM'] or None
-                auth_token = create_access_token(identity=user.public_id)
+                access_token = create_access_token(identity=user.public_id)
                 refresh_token = create_refresh_token(identity=user.public_id)
-                add_token_to_database(auth_token)
+                add_token_to_database(access_token)
                 add_token_to_database(refresh_token)
                 responseObject = {
                     'status': 'success',
-                    'auth_token': auth_token,
+                    'access_token': access_token,
                     'refresh_token': refresh_token
                 }
                 return make_response(jsonify(responseObject)), 201

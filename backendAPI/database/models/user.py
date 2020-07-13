@@ -1,4 +1,5 @@
 import datetime
+import uuid
 
 # third  party imports
 from sqlalchemy import Column, String, Integer, Boolean, DateTime, or_
@@ -13,10 +14,10 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(255), unique=True, nullable=False)
-    registered_on = Column(DateTime, nullable=False)
+    registered_on = Column(DateTime, default=datetime.datetime.utcnow())
     admin = Column(Boolean, nullable=False, default=False)
-    public_id = Column(String(100), unique=True)
-    username = Column(String(50), unique=True)
+    public_id = Column(String(100), default=str(uuid.uuid4()))
+    username = Column(String(50), unique=True, nullable=False)
     password_hash = Column(String(100))
 
     @property

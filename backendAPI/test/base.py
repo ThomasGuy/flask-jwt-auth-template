@@ -37,7 +37,7 @@ class BaseTestCase(TestCase):
             content_type='application/json'
         )
 
-    def login_user(self, username, email, password):
+    def login_user(self, username='joeseph', email='joe@gmail.com', password='123456'):
         """ login test user post request """
         return self.client.post(
             '/auth/login',

@@ -23,11 +23,9 @@ class RegisterAPI(MethodView):
         if user is None:
             try:
                 user = User(
-                    public_id=str(uuid.uuid4()),
                     username=post_data.get('username'),
                     email=post_data.get('email'),
-                    password=post_data.get('password'),
-                    registered_on=datetime.datetime.utcnow()
+                    password=post_data.get('password')()
                 )
 
                 # insert the user
@@ -37,7 +35,7 @@ class RegisterAPI(MethodView):
                 access_token = create_access_token(identity=user.public_id)
                 responseObject = {
                     'status': 'success',
-                    'auth_token': access_token
+                    'access_token': access_token
                 }
                 return make_response(jsonify(responseObject)), 201
             except Exception as e:

@@ -13,9 +13,9 @@ class TestUserModel(BaseTestCase):
 
     def test_decode_access_token(self):
         """ test decode access token """
-        public_id=str(uuid.uuid4())
+        # public_id=str(uuid.uuid4())
         user = User(
-            public_id=public_id,
+            # public_id=public_id,
             email='test@test.com',
             password='testpw',
             username='jonny',
@@ -23,12 +23,11 @@ class TestUserModel(BaseTestCase):
         )
         db.add(user)
         db.commit()
-        auth_token = create_access_token(identity=user.public_id)
-        self.assertTrue(User.authenticate( 'testpw', public_id=public_id))
+        access_token = create_access_token(identity=user.public_id)
         self.assertTrue(User.authenticate( 'testpw', username='jonny'))
         self.assertTrue(User.authenticate( 'testpw', email='test@test.com'))
         self.assertTrue(user.check_password('testpw'))
-        self.assertTrue(decode_token(auth_token)) == user.username
+        self.assertTrue(decode_token(access_token)['identity'] == user.public_id)
 
 
 if __name__ == '__main__':
