@@ -2,9 +2,9 @@ from flask import Blueprint
 
 from .registerAPI import RegisterAPI
 from .loginAPI import LoginAPI
-from .logout import LogoutAPI
-from .refresh import RefreshToken
-from .protected import ProtectedAPI
+from .logoutAPI import LogoutAPI
+from .refreshAPI import RefreshToken
+from .protectedAPI import ProtectedAPI
 
 
 auth_blueprint = Blueprint('auth', __name__)
@@ -21,6 +21,7 @@ auth_blueprint.add_url_rule(
     view_func=registration_view,
     methods=['POST']
 )
+
 auth_blueprint.add_url_rule(
     '/auth/login',
     view_func=login_view,
